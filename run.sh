@@ -4,6 +4,11 @@ MAX_SIZE=${MAX_SIZE:-8}
 MAX_CHILDREN=${MAX_CHILDREN:-5}
 LISTEN=${LISTEN:-socket}
 
+if [ ! -d /run/php ]
+then
+  mkdir /run/php
+fi
+
 if [ ! -f /tmp/configured ]
 then
   if [ ! "${MAX_SIZE}" = "8" ]
