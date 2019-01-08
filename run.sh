@@ -25,7 +25,7 @@ then
     echo "Setting 'max_children' to '${MAX_CHILDREN}'"
     sed -i "s/pm.max_children = 5/pm.max_children = ${MAX_CHILDREN}/g" /etc/php/7.0/fpm/pool.d/www.conf
   else
-    echo "Using default value '${MAX_CHILDREN}' for 'max_children'"
+    echo "Using default value '${MAX_CHILDREN}' for 'pm.max_children'"
   fi
 
   if [ "${LISTEN}" = "port" ]
