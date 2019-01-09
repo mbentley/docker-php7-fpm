@@ -1,14 +1,13 @@
-FROM debian:stretch
+FROM alpine:latest
 MAINTAINER Matt Bentley <mbentley@mbentley.net>
 
 # install typical php packages and then additional packages
-RUN apt-get update &&\
-  DEBIAN_FRONTEND=noninteractive apt-get install -y php7.0-curl php7.0-gd php7.0-fpm php-imagick php7.0-mcrypt php-memcache php-memcached php7.0-mysql dnsutils imagemagick netbase ssmtp whois &&\
-  rm -rf /var/lib/apt/lists/* &&\
-  mkdir /run/php
+RUN echo '@edge http://nl.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories &&\
+  apk add --no-cache bind-tools imagemagick@edge php7-curl php7-gd php7-fpm php7-imagick php7-mcrypt php7-memcached php7-mysqli ssmtp wget whois &&\
+  sed -i "s#listen = 127.0.0.1:9000#listen = /var/run/php/php-fpm7.sock#g" /etc/php7/php-fpm.d/www.conf
 
-# add run script
-ADD run.sh /usr/local/bin/run
+# add entrypoint script
+COPY entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["/usr/local/bin/run"]
-CMD ["/usr/sbin/php-fpm7.0","-F","-R","--fpm-config","/etc/php/7.0/fpm/php-fpm.conf"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/usr/sbin/php-fpm7","-F","--fpm-config","/etc/php7/php-fpm.conf"]
