@@ -7,6 +7,9 @@ RUN echo '@edge http://nl.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repos
   sed -i "s#listen = 127.0.0.1:9000#listen = /var/run/php/php-fpm7.sock#g" /etc/php7/php-fpm.d/www.conf &&\
   sed -i "s#^user = nobody#user = www-data#g" /etc/php7/php-fpm.d/www.conf &&\
   sed -i "s#^group = nobody#group = www-data#g" /etc/php7/php-fpm.d/www.conf &&\
+  sed -i "s#^;listen.owner = nobody#listen.owner = www-data#g" /etc/php7/php-fpm.d/www.conf &&\
+  sed -i "s#^;listen.group = nobody#listen.group = www-data#g" /etc/php7/php-fpm.d/www.conf &&\
+  sed -i "s#^;listen.mode = 0660#listen.mode = 0660#g" /etc/php7/php-fpm.d/www.conf &&\
   deluser xfs &&\
   mkdir /var/www &&\
   addgroup -g 33 www-data &&\
