@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.9
 MAINTAINER Matt Bentley <mbentley@mbentley.net>
 
 # install typical php packages and then additional packages
