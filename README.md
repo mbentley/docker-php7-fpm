@@ -13,9 +13,11 @@ Example usage:
 ## Environment Variables
 The following environment variables can be passed to the docker image:
 
-`MAX_SIZE` (default: 8) - Sets the 'post_max_size' and 'upload_max_filesize' options in php.ini
+`MAX_SIZE` (default: 8) - Sets the 'post_max_size' and 'upload_max_filesize' options in php.ini; value is in MB
 
 `MAX_CHILDREN` (default: 5) - Sets the 'max_children' option in www.conf
+
+`MEMORY_LIMIT` (default: 128) - Sets the 'memory_limit' option in php.ini; value is in MB
 
 `LISTEN` (default: socket; options: socket or port) - Changes php7-fpm listen behavior
 

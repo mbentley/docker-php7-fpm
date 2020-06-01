@@ -2,6 +2,7 @@
 
 MAX_SIZE=${MAX_SIZE:-8}
 MAX_CHILDREN=${MAX_CHILDREN:-5}
+MEMORY_LIMIT=${MEMORY_LIMIT:-128}
 LISTEN=${LISTEN:-socket}
 
 if [ ! -d /run/php ]
@@ -34,6 +35,14 @@ then
     sed -i "s#listen = /var/run/php/php-fpm7.sock#listen = 9000#g" /etc/php7/php-fpm.d/www.conf
   else
     echo "Using default value 'listen = /var/run/php/php-fpm7.sock' for 'listen'"
+  fi
+
+  if [ ! "${MEMORY_LIMIT}" = "128" ]
+  then
+    echo "Setting 'memory_limit' to '${MEMORY_LIMIT}'"
+    sed -i "s/memory_limit = 128M/memory_limit = ${MEMORY_LIMIT}M/g" /etc/php7/php.ini
+  else
+    echo "Using default value '${MEMORY_LIMIT}' for 'memory_limit'"
   fi
 
   touch /tmp/configured
