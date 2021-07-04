@@ -16,6 +16,7 @@ RUN apk add --no-cache bind-tools imagemagick php7 php7-bcmath php7-bz2 php7-cty
   sed -i "s#^;opcache.memory_consumption=128#opcache.memory_consumption=128#g" /etc/php7/php.ini &&\
   sed -i "s#^;opcache.save_comments=1#opcache.save_comments=1#g" /etc/php7/php.ini &&\
   sed -i "s#^;opcache.revalidate_freq=2#opcache.revalidate_freq=1#g" /etc/php7/php.ini &&\
+  echo 'apc.enable_cli=1' >> /etc/php7/conf.d/apcu.ini &&\
   deluser $(grep ':33:' /etc/passwd | awk -F ':' '{print $1}') || true &&\
   delgroup $(grep '^www-data:' /etc/group | awk -F ':' '{print $1}') || true &&\
   mkdir /var/www &&\
