@@ -12,11 +12,11 @@ RUN apk add --no-cache bind-tools imagemagick php7 php7-bcmath php7-bz2 php7-cty
   sed -i "s#^;listen.mode = 0660#listen.mode = 0660#g" /etc/php7/php-fpm.d/www.conf &&\
   sed -i "s#^;env#env#g" /etc/php7/php-fpm.d/www.conf &&\
   sed -i "s#^;opcache.enable=1#opcache.enable=1#g" /etc/php7/php.ini &&\
-  sed -i "s#^;opcache.interned_strings_buffer=8#opcache.interned_strings_buffer=24#g" /etc/php7/php.ini &&\
-  sed -i "s#^;opcache.max_accelerated_files=10000#opcache.max_accelerated_files=10000#g" /etc/php7/php.ini &&\
+  sed -i "s#^;opcache.interned_strings_buffer=8#opcache.interned_strings_buffer=32#g" /etc/php7/php.ini &&\
+  sed -i "s#^;opcache.max_accelerated_files=10000#opcache.max_accelerated_files=25000#g" /etc/php7/php.ini &&\
   sed -i "s#^;opcache.memory_consumption=128#opcache.memory_consumption=256#g" /etc/php7/php.ini &&\
   sed -i "s#^;opcache.save_comments=1#opcache.save_comments=1#g" /etc/php7/php.ini &&\
-  sed -i "s#^;opcache.revalidate_freq=2#opcache.revalidate_freq=1#g" /etc/php7/php.ini &&\
+  sed -i "s#^;opcache.revalidate_freq=2#opcache.revalidate_freq=30#g" /etc/php7/php.ini &&\
   echo 'apc.enable_cli=1' >> /etc/php7/conf.d/apcu.ini &&\
   deluser "$(grep ':33:' /etc/passwd | awk -F ':' '{print $1}')" || true &&\
   delgroup "$(grep '^www-data:' /etc/group | awk -F ':' '{print $1}')" || true &&\
