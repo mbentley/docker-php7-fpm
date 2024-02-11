@@ -1,5 +1,6 @@
-mbentley/php7-fpm
-=================
+# mbentley/php7-fpm
+
+**Warning**: this image is no longer maintained on Docker Hub but the code is left for an example.
 
 docker image for php7-fpm
 based off of alpine:latest
@@ -11,6 +12,7 @@ Example usage:
 `docker run -i -t mbentley/php7-fpm`
 
 ## Environment Variables
+
 The following environment variables can be passed to the docker image:
 
 `MAX_SIZE` (default: 8) - Sets the 'post_max_size' and 'upload_max_filesize' options in php.ini; value is in MB
